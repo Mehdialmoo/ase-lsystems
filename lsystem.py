@@ -41,12 +41,12 @@ class Ltree(LSystem):
         self.thickness = thickness
         self.rules = rules
         self.state_history = [axiom]
-        self.Pen = Pen(
+        self.pen = Pen(
             image_dimensions = (1000,1000),
             pen_pos = (500,1000),
             width = 3
         )
-        self.Pen.set_heading(-90)
+        self.pen.set_heading(-90)
     
     def generate(self,iterations: int) -> None:
         for _ in range(iterations):
@@ -55,7 +55,27 @@ class Ltree(LSystem):
             self.state_history.append(new_state)
 
     def draw (self, command: str):
-        pass
+        if command == "L" or command == "I":
+            self.pen.forward(self.length)
+        elif command == "[":
+            pen_state = {
+                "position" : self.pen.get_pos(),
+                "heading" : self.pen.get_heading()
+            }
+            self.drawing_stack.append(pen_state)
+            self.pen.left(self.angle)
+        elif command == "]":
+            pen_state = self.drawing_stack.pop()
+            self.pen.up()
+            self.pen.set_pos(pen_state["position"])
+            self.pen.heading(pen_state["heading"])
+            self.pen.right(self.angle)
+            self.pen.down()
+            
+
+
+
+
 
 if  __name__=="__main__":
     rules = {
