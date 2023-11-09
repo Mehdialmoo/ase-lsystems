@@ -41,6 +41,7 @@ class Ltree(LSystem):
         self.thickness = thickness
         self.rules = rules
         self.state_history = [axiom]
+        self.drawing_stack = []
         self.pen = Pen(
             image_dimensions = (1000,1000),
             pen_pos = (500,1000),
@@ -68,7 +69,7 @@ class Ltree(LSystem):
             pen_state = self.drawing_stack.pop()
             self.pen.up()
             self.pen.set_pos(pen_state["position"])
-            self.pen.heading(pen_state["heading"])
+            self.pen.set_heading(pen_state["heading"])
             self.pen.right(self.angle)
             self.pen.down()
             
@@ -80,6 +81,8 @@ class Ltree(LSystem):
             self.draw(command)
         self.pen.up()
 
+    def save(self,filename: str):
+        self.pen.save(filename = filename)
 
 
 if  __name__=="__main__":
@@ -96,5 +99,7 @@ if  __name__=="__main__":
         rules=rules,
         angle=35
     )
-    ltree.generate(iterations=6)
+    ltree.generate(iterations=7)
+    ltree.create_image()
+    ltree.save("ltree.png")
 
