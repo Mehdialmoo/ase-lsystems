@@ -34,10 +34,42 @@ class Ltree(LSystem):
     angle : int,
     rules: Dict[str,str]) -> None:
         
+        LSystem.__init__(self)
         self.length = length
         self.angle = angle
         self.colour = colour
         self.thickness = thickness
         self.rules = rules
         self.state_history = [axiom]
-        
+        self.Pen = Pen(
+            image_dimensions = (1000,1000),
+            pen_pos = (500,1000),
+            width = 3
+        )
+        self.Pen.set_heading(-90)
+    
+    def generate(self,iterations: int) -> None:
+        for _ in range(iterations):
+            current_state = self.state_history[-1]
+            new_state = self.generate_next_state(current_state)
+            self.state_history.append(new_state)
+
+    def draw (self, command: str):
+        pass
+
+if  __name__=="__main__":
+    rules = {
+        "L" : "I[L]L",
+        "I" : "II"
+    }
+    axiom = "L"
+    ltree =Ltree(
+        axiom=axiom,
+        colour="Green",
+        thickness=3,
+        length=5,
+        rules=rules,
+        angle=35
+    )
+    ltree.generate(iterations=6)
+
