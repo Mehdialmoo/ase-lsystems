@@ -24,4 +24,20 @@ class Ltree(LSystem):
     angle : int
     Pen : Pen
     drawing_stack : list[Dict]
-    
+    state_history: List[str]
+
+    def __init__(self,    
+    axiom : str,
+    colour : str, 
+    thickness : int,
+    length : int,
+    angle : int,
+    rules: Dict[str,str]) -> None:
+        
+        self.length = length
+        self.angle = angle
+        self.colour = colour
+        self.thickness = thickness
+        self.rules = rules
+        self.state_history = [axiom]
+        
