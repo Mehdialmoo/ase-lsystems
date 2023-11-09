@@ -54,7 +54,7 @@ class Ltree(LSystem):
             new_state = self.generate_next_state(current_state)
             self.state_history.append(new_state)
 
-    def draw (self, command: str):
+    def draw (self, command: str) -> None:
         if command == "L" or command == "I":
             self.pen.forward(self.length)
         elif command == "[":
@@ -73,7 +73,12 @@ class Ltree(LSystem):
             self.pen.down()
             
 
-
+    def create_image(self) -> None:
+        state = self.state_history[-1]
+        self.pen.down()
+        for command in state:
+            self.draw(command)
+        self.pen.up()
 
 
 
