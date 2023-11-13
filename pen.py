@@ -6,7 +6,7 @@ from PIL import Image, ImageDraw
 
 class Pen:
     def __init__(
-        self, image_dimensions: Tuple[int, int], pen_pos: Tuple = (0, 0), width: int = 0, colour: str="#EC99B2"
+        self, image_dimensions: Tuple[int, int], pen_pos: Tuple = (0, 0), width: int = 0, colour: str = "#EC99B2"
     ):
         self.pos = pen_pos
         self.heading = 0.0
@@ -24,7 +24,8 @@ class Pen:
             (dist * math.sin(self.heading)) + self.pos[1],
         )
         if self.is_down:
-            self.drawing.line(self.pos + newpos, fill=self.colour, width=self.width)
+            self.drawing.line(self.pos + newpos,
+                              fill=self.colour, width=self.width)
         self.pos = newpos
 
     def left(self, heading: float):
