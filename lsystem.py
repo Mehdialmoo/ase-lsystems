@@ -3,13 +3,15 @@ from pen import Pen
 
 
 class LSystem():
-
+    """doc"""
     rules: dict[str, str]
 
     def set_rules(self, rules: Dict[str, str]) -> None:
+        """doc"""
         self.rules = rules
 
     def generate_next_state(self, current_state) -> str:
+        """doc"""
         new_state = ""
         for character in current_state:
             if character in self.rules.keys():
@@ -20,6 +22,7 @@ class LSystem():
 
 
 class Ltree(LSystem):
+    """doc"""
     colour: str
     thickness: int
     length: int
